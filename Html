@@ -1,0 +1,37 @@
+<!-- OTP Verification Section -->
+<div class="form-group">
+    <label for="otp">Enter OTP</label>
+    <div style="display: flex; gap: 10px;">
+        <input type="text" id="otp" name="otp" placeholder="6-digit code" maxlength="6" required>
+        <button type="button" id="resend-btn" onclick="startTimer()" style="padding: 0 15px; cursor: pointer;">
+            Resend OTP
+        </button>
+    </div>
+    <small id="timer-text" style="color: #666666;"></small>
+</div>
+
+<script>
+    function startTimer() {
+        const resendBtn = document.getElementById('resend-btn');
+        const timerText = document.getElementById('timer-text');
+        let timeLeft = 60;
+
+        // Disable the button immediately
+        resendBtn.disabled = true;
+        resendBtn.style.opacity = "0.6";
+        resendBtn.style.cursor = "not-allowed";
+
+        const countdown = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                resendBtn.disabled = false;
+                resendBtn.style.opacity = "1";
+                resendBtn.style.cursor = "pointer";
+                timerText.textContent = "";
+            } else {
+                timerText.textContent = `You can resend OTP in ${timeLeft} seconds`;
+                timeLeft--;
+            }
+        }, 1000);
+    }
+</script>
